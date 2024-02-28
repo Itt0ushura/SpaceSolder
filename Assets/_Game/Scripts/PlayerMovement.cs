@@ -5,12 +5,21 @@ public class PlayerMovement : MonoBehaviour
 {
     private Animator _animator;
     private Rigidbody _rb;
-    
-    public float _movementSpeed;
-    
     private Vector2 _dragDirection;
 
+    public float _movementSpeed;
+
     public InputActionReference MoveReference;
+
+    private void OnEnable()
+    {
+        MoveReference.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        MoveReference.action.Disable();
+    }
 
     void Start()
     {
@@ -23,12 +32,8 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void FixedUpdate()
-    {   
-        OnPlayerMove();
-    }
-
-    private void OnPlayerMove()
     {
-        _rb.velocity = new Vector3(_dragDirection.x * _movementSpeed, 0f, _dragDirection.y * _movementSpeed);
+        Vector3 newPosition = _rb.position + new Vector3(_dragDirection.x * _movementSpeed, 0f, _dragDirection.y * _movementSpeed) * Time.fixedDeltaTime;
+        _rb.MovePosition(newPosition);
     }
 }

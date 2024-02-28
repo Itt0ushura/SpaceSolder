@@ -39,7 +39,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
+                    "name": "Up",
                     "id": "e1daa344-3fc9-4d0d-923d-346b152693e0",
                     "path": "<Keyboard>/w",
                     "interactions": "",
@@ -50,7 +50,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "down",
+                    "name": "Down",
                     "id": "935ab19d-e5cd-4aef-a54d-322534dc2e7a",
                     "path": "<Keyboard>/s",
                     "interactions": "",
@@ -61,8 +61,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "left",
-                    "id": "7064c8aa-3447-4359-b02a-2e25d77ade81",
+                    "name": "Left",
+                    "id": "623db171-72cf-46fa-a63e-733bf7191662",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -72,8 +72,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
-                    "id": "e486f806-f874-43e0-bc07-3015ed205896",
+                    "name": "Right",
+                    "id": "6a18692a-4282-4f5c-b9d8-f1ee1dd58b6f",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
