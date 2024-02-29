@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator _animator;
     private Rigidbody _rb;
     private Vector2 _dragDirection;
-
+    Vector3 newPosition;
     public float _movementSpeed;
 
     public InputActionReference MoveReference;
@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
         MoveReference.action.Disable();
     }
 
-    void Start()
+    private void Start()
     {
         _rb = GetComponent<Rigidbody>();
     }
@@ -29,11 +29,13 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         _dragDirection = MoveReference.action.ReadValue<Vector2>();
+        transform.forward += new Vector3(_dragDirection.x, 0f, _dragDirection.y);
+        newPosition = _rb.position + _rb.transform.forward * _movementSpeed * _dragDirection.magnitude * Time.fixedDeltaTime;
+        
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        Vector3 newPosition = _rb.position + new Vector3(_dragDirection.x * _movementSpeed, 0f, _dragDirection.y * _movementSpeed) * Time.fixedDeltaTime;
         _rb.MovePosition(newPosition);
     }
 }
