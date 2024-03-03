@@ -68,8 +68,9 @@ public class PlayerMovement : MonoBehaviour
         {
             _animator.SetBool("isWalking", true);
 
-            newPosition = _rb.position + _rb.transform.forward * _movementSpeed * _dragDirection.magnitude * Time.fixedDeltaTime;
-            _rb.MovePosition(newPosition);
+            newPosition = /*_rb.position + */_rb.transform.forward * _movementSpeed * _dragDirection.magnitude;
+            //_rb.MovePosition(newPosition);
+            _rb.velocity = newPosition;
 
         }
         else
