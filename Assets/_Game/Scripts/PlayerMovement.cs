@@ -5,11 +5,16 @@ public class PlayerMovement : MonoBehaviour
 {
     private Animator _animator;
     private Rigidbody _rb;
+
     private Vector2 _dragDirection;
     Vector3 newPosition;
     public float _movementSpeed;
 
     public InputActionReference MoveReference;
+
+    //for the future(maybe) improvements
+    int isWalkingHash;
+    bool isWalking;
 
     private void OnEnable()
     {
@@ -24,21 +29,54 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _animator = GetComponent<Animator>();
+        //isWalkingHash = Animator.StringToHash("isWalking");
     }
 
     private void Update()
     {
+        //isWalking = _animator.GetBool(isWalkingHash);
+
         _dragDirection = MoveReference.action.ReadValue<Vector2>();
 
-        if (_dragDirection != Vector2.zero)
-            transform.forward = new Vector3(_dragDirection.x, 0f, _dragDirection.y);
+        DirectionCheck();
 
-        newPosition = _rb.position + _rb.transform.forward * _movementSpeed * _dragDirection.magnitude * Time.fixedDeltaTime;
     }
 
     private void FixedUpdate()
     {
+
+        Movement();
+
+    }
+
+    private void DirectionCheck()
+    {
+
         if (_dragDirection != Vector2.zero)
+        {
+
+            transform.forward = new Vector3(_dragDirection.x, 0f, _dragDirection.y);
+
+        }
+
+    }
+
+    private void Movement()
+    {
+        if (_dragDirection.magnitude > 0.4)
+        {
+            _animator.SetBool("isWalking", true);
+
+            newPosition = _rb.position + _rb.transform.forward * _movementSpeed * _dragDirection.magnitude * Time.fixedDeltaTime;
             _rb.MovePosition(newPosition);
+
+        }
+        else
+        {
+
+            _animator.SetBool("isWalking", false);
+
+        }        
     }
 }
