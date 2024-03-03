@@ -56,7 +56,8 @@ public class PlayerMovement : MonoBehaviour
         if (_dragDirection != Vector2.zero)
         {
 
-            transform.forward = new Vector3(_dragDirection.x, 0f, _dragDirection.y);
+            var dir = new Vector3(_dragDirection.x, 0f, _dragDirection.y);
+            transform.rotation = Quaternion.LookRotation(dir);
 
         }
 
