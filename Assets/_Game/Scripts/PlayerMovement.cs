@@ -7,7 +7,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rb;
 
     private Vector2 _dragDirection;
-    Vector3 newPosition;
+    private Quaternion _startRotation;
+
+    private Vector3 newPosition;
     public float _movementSpeed;
 
     public InputActionReference MoveReference;
@@ -33,34 +35,24 @@ public class PlayerMovement : MonoBehaviour
         //isWalkingHash = Animator.StringToHash("isWalking");
     }
 
-    private void Update()
-    {
-        //isWalking = _animator.GetBool(isWalkingHash);
-
-        _dragDirection = MoveReference.action.ReadValue<Vector2>();
-
-        DirectionCheck();
-
-    }
-
     private void FixedUpdate()
     {
-
+        //isWalking = _animator.GetBool(isWalkingHash);
+        _dragDirection = MoveReference.action.ReadValue<Vector2>();
         Movement();
-
+        DirectionCheck();
     }
 
     private void DirectionCheck()
     {
-
         if (_dragDirection != Vector2.zero)
         {
-
             var dir = new Vector3(_dragDirection.x, 0f, _dragDirection.y);
-            transform.rotation = Quaternion.LookRotation(dir);
 
+            var targetRotation = _startRotation * Quaternion.LookRotation(dir);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.1f);
         }
-
+        _startRotation = Quaternion.Slerp(_startRotation, transform.rotation, 0.02f);
     }
 
     private void Movement()
@@ -69,16 +61,13 @@ public class PlayerMovement : MonoBehaviour
         {
             _animator.SetBool("isWalking", true);
 
-            newPosition = /*_rb.position + */_rb.transform.forward * _movementSpeed * _dragDirection.magnitude;
-            //_rb.MovePosition(newPosition);
-            _rb.velocity = newPosition;
+            newPosition = _rb.transform.forward * _movementSpeed * _dragDirection.magnitude;
 
+            _rb.velocity = newPosition;
         }
         else
         {
-
             _animator.SetBool("isWalking", false);
-
-        }        
+        }
     }
 }
