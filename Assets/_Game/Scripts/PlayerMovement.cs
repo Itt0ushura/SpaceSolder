@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _dragDirection;
     private Quaternion _startRotation;
 
-    private Vector3 newPosition;
+    private Vector3 _newPosition;
     public float _movementSpeed;
 
     public InputActionReference MoveReference;
@@ -57,13 +57,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Movement()
     {
-        if (_dragDirection.magnitude > 0.4)
+        if (_dragDirection.magnitude > 0.5)
         {
             _animator.SetBool("isWalking", true);
 
-            newPosition = _rb.transform.forward * _movementSpeed * _dragDirection.magnitude;
+            _newPosition = _rb.transform.forward * _movementSpeed * _dragDirection.magnitude;
 
-            _rb.velocity = newPosition;
+            _rb.velocity = _newPosition;
         }
         else
         {

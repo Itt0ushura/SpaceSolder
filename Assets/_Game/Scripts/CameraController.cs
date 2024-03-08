@@ -18,8 +18,8 @@ public class CameraController : MonoBehaviour
     {
         Vector3 targetPosition = playerTransform.position + playerTransform.right * cameraOffset.x + playerTransform.up * cameraOffset.y - playerTransform.forward * cameraOffset.z;
 
-        _camera.transform.position = Vector3.Lerp(_camera.transform.position, targetPosition, 0.1f);
+        _camera.transform.position = Vector3.Lerp(_camera.transform.position, targetPosition, 0.5f);
 
-        _camera.transform.rotation = Quaternion.Lerp(_camera.transform.rotation, playerTransform.transform.rotation, 0.1f);
+        _camera.transform.rotation = Quaternion.Lerp(_camera.transform.rotation, playerTransform.transform.rotation, 0.6f);
     }
 }
