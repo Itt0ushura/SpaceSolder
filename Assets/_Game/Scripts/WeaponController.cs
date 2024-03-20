@@ -7,7 +7,6 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private GameObject decal;
 
     private bool _ray;
-    private bool _isShooting;
 
     private RaycastHit _hit;
 
@@ -18,16 +17,14 @@ public class WeaponController : MonoBehaviour
 
     void FixedUpdate()
     {
-        _isShooting = false;
-        flash.SetActive(_isShooting);
+        flash.SetActive(false);
         Vector3 fwd = transform.TransformDirection(Vector3.up);
         _ray = Physics.Raycast(transform.position, fwd, out _hit);
         TargetLock();
     }
     public void Shoot()
     {
-        _isShooting = true;
-        flash.SetActive(_isShooting);
+        flash.SetActive(true);
         if (_ray)
             Instantiate(decal, _hit.point, _hit.transform.rotation);
     }
